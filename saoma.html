@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>二维码扫描</title>
+		<style type="text/css">
+			* {
+				-webkit-user-select: none;
+			}
+
+			html,
+			body {
+				margin: 0px;
+				padding: 0px;
+				height: 100%;
+			}
+
+			#bcid {
+				background: #F0EFF4;
+				height: 816px;
+				width: 400px;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ma">
+			<div id="maa">返回</div>
+			<div id="bcid"></div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		// 扩展API加载完毕后调用onPlusReady回调函数 
+		document.addEventListener("plusready", onPlusReady, false);
+		// 扩展API加载完毕，现在可以正常调用扩展API
+		function onPlusReady() {
+			setTimeout(startRecognize(), 100);
+			var e = document.getElementById("scan");
+			e.removeAttribute("disabled");
+
+		}
+		var scan = null;
+		var shuju = "";
+
+		function onmarked(type, result) {
+			var text = '未知: ';
+			switch (type) {
+				case plus.barcode.QR:
+					text = 'QR: ';
+					break;
+				case plus.barcode.EAN13:
+					text = 'EAN13: ';
+					break;
+				case plus.barcode.EAN8:
+					text = 'EAN8: ';
+					break;
+			}
+			scan.close();
+			scan.cancel();   
+			this.shuju = result;
+			if(this.shuju!=null) {
+				location.href= 'jieguo.html';
+				window.localStorage.setItem('txt',result);
+			}
+			
+		}
+
+		function startRecognize() {
+			scan = new plus.barcode.Barcode('bcid');
+			scan.onmarked = onmarked;
+			setTimeout(startScan(), 100);
+		}
+
+		function startScan() {
+			scan.start();
+		}
+		// plus.webview.show('#maa');
+		
+	</script>
+</html>

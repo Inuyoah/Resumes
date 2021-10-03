@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Camera Example</title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.bnm{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			// 扩展API加载完毕后调用onPlusReady回调函数 
+			document.addEventListener("plusready", onPlusReady, false);
+			// 扩展API加载完毕，现在可以正常调用扩展API 
+			function onPlusReady() {
+				// console.log("plusready");
+				setTimeout(captureImage(), 100);
+			}
+			// 拍照
+			function captureImage() {
+				var cmr = plus.camera.getCamera();
+				var res = cmr.supportedImageResolutions[0];
+				var fmt = cmr.supportedImageFormats[0];
+				// console.log("Resolution: " + res + ", Format: " + fmt);
+				cmr.captureImage(function(path) {
+						var zsdz = plus.io.convertLocalFileSystemURL(path);
+						// alert("Capture image success: " + path + "拍照成功");
+						document.querySelector('#info').innerHTML='<img class="bnm" height="2078px" width="1000px"  src="'+zsdz+'" />';
+					}, function(error) {
+						// alert( "Capture image failed: " + error.message + "放弃拍照");
+						location.href = "index.html";
+					});
+			}
+			// 产生一个随机数  
+			// function getUid() {
+			// 	return Math.floor(Math.random() * 100000000 + 10000000).toString(); //返回随机数字名字  
+			// }
+		</script>
+	</head>
+	<body>
+		<div id="info"> </div>
+	</body>
+</html>

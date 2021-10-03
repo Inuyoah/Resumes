@@ -1,0 +1,15 @@
+.asd{
+	height: 99px;
+	width: 70px;
+}
+.as{
+	text-align:center;
+	margin: auto;
+	margin-top: 10px;
+}
+.qqstyle{
+		background-image:url(../img/qq.jpg);
+		width: 20px;
+		height: 40px;
+		/* position: relative; */
+	}
